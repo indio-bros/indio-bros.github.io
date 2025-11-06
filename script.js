@@ -65,7 +65,7 @@ function drawFrame(frameBuffer) {
 
 document.getElementById("load-rom").addEventListener("click", async () => {
   try {
-    const response = await fetch("/roms/INDIOBROS.NES");
+    const response = await fetch("roms/INDIOBROS.NES");
     const buffer = await response.arrayBuffer();
     nes.loadROM(new Uint8Array(buffer));
     startLoop();
