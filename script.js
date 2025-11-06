@@ -47,37 +47,7 @@ player.addEventListener("ended", () => {
 window.addEventListener("load", () => playTrack(currentTrack));
 
 
-// --- EMULADOR REAL ---
-const canvas = document.getElementById("nes-canvas");
-const ctx = canvas.getContext("2d");
-const imageData = ctx.getImageData(0, 0, 256, 240);
-const nes = new JSNES({ onFrame: frame => drawFrame(frame) });
-
-function drawFrame(frameBuffer) {
-  const data = imageData.data;
-  for (let i = 0; i < frameBuffer.length; i++) {
-    data[i * 4] = (frameBuffer[i] >> 16) & 0xFF;
-    data[i * 4 + 1] = (frameBuffer[i] >> 8) & 0xFF;
-    data[i * 4 + 2] = frameBuffer[i] & 0xFF;
-  }
-  ctx.putImageData(imageData, 0, 0);
-}
-
-document.getElementById("load-rom").addEventListener("click", async () => {
-  try {
-    const response = await fetch("roms/INDIOBROS.NES");
-    const buffer = await response.arrayBuffer();
-    nes.loadROM(new Uint8Array(buffer));
-    startLoop();
-  } catch (err) {
-    alert("Error al cargar la ROM: " + err.message);
-  }
+// --- EMULADOR JSNES EMBED ---
+document.getElementById("load-rom").addEventListener("click", () => {
+  nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
 });
-
-function startLoop() {
-  function frame() {
-    nes.frame();
-    requestAnimationFrame(frame);
-  }
-  frame();
-}
