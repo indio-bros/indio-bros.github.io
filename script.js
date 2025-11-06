@@ -52,13 +52,15 @@ document.getElementById("load-rom").addEventListener("click", () => {
 });
 
 
-// --- CONTROLES TÁCTILES ---
+// --- CONTROLES TÁCTILES SIMPLIFICADOS ---
+// Mapea botones táctiles a teclas del jugador 1 (flechas, A, Enter, Tab)
 
-function simulateKey(code, type) {
-  // Simula un evento de teclado
+function simulateKey(key, keyCode, type) {
   const event = new KeyboardEvent(type, {
-    code: code,
-    key: code,
+    key,
+    code: key,
+    keyCode,
+    which: keyCode,
     bubbles: true,
     cancelable: true,
   });
@@ -67,31 +69,32 @@ function simulateKey(code, type) {
 
 function setupTouchControls() {
   const buttons = [
-    { id: "btn-left", code: "ArrowLeft" },
-    { id: "btn-right", code: "ArrowRight" },
-    { id: "btn-a", code: "KeyA" },       // A - salto
-    { id: "btn-b", code: "KeyS" },       // S - acción secundaria
-    { id: "btn-select", code: "Tab" },   // Select
-    { id: "btn-start", code: "Enter" },  // Start
+    { id: "btn-left", key: "ArrowLeft", keyCode: 37 },
+    { id: "btn-right", key: "ArrowRight", keyCode: 39 },
+    { id: "btn-a", key: "a", keyCode: 65 },        // A - salto
+    { id: "btn-select", key: "Tab", keyCode: 9 },  // Select
+    { id: "btn-start", key: "Enter", keyCode: 13 } // Start
   ];
 
   buttons.forEach(btn => {
     const el = document.getElementById(btn.id);
     if (!el) return;
 
-    el.addEventListener("touchstart", e => {
+    const press = e => {
       e.preventDefault();
-      simulateKey(btn.code, "keydown");
-    });
+      simulateKey(btn.key, btn.keyCode, "keydown");
+    };
+    const release = e => {
+      e.preventDefault();
+      simulateKey(btn.key, btn.keyCode, "keyup");
+    };
 
-    el.addEventListener("touchend", e => {
-      e.preventDefault();
-      simulateKey(btn.code, "keyup");
-    });
+    el.addEventListener("touchstart", press);
+    el.addEventListener("touchend", release);
   });
 }
 
-// Activar solo si hay pantalla táctil
-if ('ontouchstart' in window) {
+// Solo activar en pantallas táctiles
+if ("ontouchstart" in window) {
   setupTouchControls();
 }
