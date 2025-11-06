@@ -43,80 +43,53 @@
 <!-- Tu script principal -->
 <script src="script.js"></script>
 
-<!-- Controles táctiles -->
+<!-- CONTROLES TÁCTILES (solo visibles en móvil) -->
 <div id="touch-controls">
-  <div id="left-controls">
-    <button id="btn-left">⬅️</button>
-    <button id="btn-right">➡️</button>
+  <div class="dpad">
+    <button id="btn-left">←</button>
+    <button id="btn-right">→</button>
   </div>
-  <div id="right-controls">
-    <button id="btn-a">🅰️</button>
-    <button id="btn-start">▶️</button>
-    <button id="btn-select">🔘</button>
+  <div class="actions">
+    <button id="btn-a">A</button>
+    <button id="btn-b">B</button>
+    <button id="btn-select">Select</button>
   </div>
 </div>
 
 <style>
-#touch-controls {
-  position: fixed;
-  bottom: 2vh;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 500px;
-  z-index: 10;
-}
-#left-controls, #right-controls {
-  display: flex;
-  gap: 1rem;
-}
-#touch-controls button {
-  font-size: 1.8rem;
-  background: rgba(255,255,255,0.3);
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-}
-#touch-controls button:active {
-  transform: scale(0.9);
-}
+  /* Aparece solo en pantallas chicas */
+  #touch-controls {
+    display: none;
+    margin-top: 1em;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    #touch-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+    #touch-controls button {
+      font-size: 1.2em;
+      padding: 0.8em 1.2em;
+      border-radius: 10px;
+      border: none;
+      background: #333;
+      color: #fff;
+    }
+    .dpad {
+      display: flex;
+      gap: 1em;
+    }
+    .actions {
+      display: flex;
+      gap: 1em;
+    }
+  }
 </style>
 
-<script>
-function simulateKey(key, type) {
-  document.dispatchEvent(new KeyboardEvent(type, { key }));
-}
-
-const buttons = {
-  left: document.getElementById("btn-left"),
-  right: document.getElementById("btn-right"),
-  a: document.getElementById("btn-a"),
-  start: document.getElementById("btn-start"),
-  select: document.getElementById("btn-select"),
-};
-
-function bindButton(btn, key) {
-  btn.addEventListener("touchstart", e => {
-    e.preventDefault();
-    simulateKey(key, "keydown");
-  });
-  btn.addEventListener("touchend", e => {
-    e.preventDefault();
-    simulateKey(key, "keyup");
-  });
-}
-
-bindButton(buttons.left, "ArrowLeft");
-bindButton(buttons.right, "ArrowRight");
-bindButton(buttons.a, "a");
-bindButton(buttons.start, "Enter");
-bindButton(buttons.select, "Tab");
-</script>
 
 
 </body>

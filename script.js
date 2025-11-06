@@ -50,3 +50,38 @@ document.getElementById("load-rom").addEventListener("click", () => {
   playTrack(currentTrack);
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
 });
+
+
+// --- CONTROLES TÁCTILES ---
+function simulateKey(code, type) {
+  const event = new KeyboardEvent(type, { keyCode: code, which: code });
+  document.dispatchEvent(event);
+}
+
+function setupTouchControls() {
+  const buttons = [
+    { id: "btn-left", code: 37 },
+    { id: "btn-right", code: 39 },
+    { id: "btn-a", code: 65 },      // 'A' - salto
+    { id: "btn-b", code: 83 },      // 'S' - acción secundaria
+    { id: "btn-select", code: 9 }   // Tab - select
+  ];
+
+  buttons.forEach(btn => {
+    const el = document.getElementById(btn.id);
+    if (!el) return;
+    el.addEventListener("touchstart", e => {
+      e.preventDefault();
+      simulateKey(btn.code, "keydown");
+    });
+    el.addEventListener("touchend", e => {
+      e.preventDefault();
+      simulateKey(btn.code, "keyup");
+    });
+  });
+}
+
+// Solo activamos los controles si hay pantalla táctil
+if ('ontouchstart' in window) {
+  setupTouchControls();
+}
