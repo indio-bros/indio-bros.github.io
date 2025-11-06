@@ -48,6 +48,16 @@ window.addEventListener("load", () => playTrack(currentTrack));
 
 
 // --- EMULADOR JSNES EMBED ---
+let nes = new jsnes.NES({
+  onFrame: function(frameBuffer) {
+    nes_draw_frame(frameBuffer);
+  },
+  onAudioSample: function(l, r) {
+    nes_write_audio_sample(l, r);
+  }
+});
+
 document.getElementById("load-rom").addEventListener("click", () => {
+  playTrack(); // ahora el usuario interactuó
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
 });
