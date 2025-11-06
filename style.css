@@ -1,0 +1,101 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Menlo, monospace;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1em;
+  text-align: center;
+  width: 90%;
+  max-width: 800px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0.2em 0 0;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #ccc;
+  margin: 0;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+}
+
+.emulator canvas {
+  border: 1px solid #555;
+  background: #111;
+  display: block;
+  margin: 0 auto 0.5em;
+}
+
+button {
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  font-family: Menlo, monospace;
+}
+button:hover {
+  border-color: #fff;
+}
+
+.player {
+  border-top: 1px solid #333;
+  padding-top: 1em;
+}
+
+.player h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  color: #ccc;
+}
+
+#tracklist {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.5em;
+}
+
+#tracklist tr {
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+#tracklist tr:hover {
+  background: #111;
+}
+
+#tracklist td {
+  padding: 0.3em 0.5em;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+audio {
+  width: 100%;
+  outline: none;
+  background: #000;
+}
+
+footer {
+  font-size: 0.8rem;
+  color: #555;
+}

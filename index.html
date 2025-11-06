@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indio Bros y los Fundamentalistas de los 8-bit</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Indio Bros</h1>
+      <h2>y los Fundamentalistas de los 8-bit</h2>
+    </header>
+
+    <main>
+      <div class="emulator">
+        <canvas id="nes-canvas" width="256" height="240"></canvas>
+        <button id="load-rom">Cargar ROM</button>
+      </div>
+
+      <div class="player">
+        <h3>Soundtrack</h3>
+        <table id="tracklist"></table>
+        <audio id="audio-player" controls></audio>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Proyecto fanmade — Sin fines de lucro</p>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/jsnes/dist/jsnes.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
