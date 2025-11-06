@@ -42,6 +42,16 @@
   }
 }
 
+/* Modo diestro (por defecto) */
+#touch-controls.right-handed .dpad-actions {
+  flex-direction: row;
+}
+
+/* Modo zurdo */
+#touch-controls.left-handed .dpad-actions {
+  flex-direction: row-reverse; /* A queda a la izquierda, flechas a la derecha */
+}
+
 
 </style>
 </head>
@@ -69,7 +79,7 @@
 <button id="toggle-handedness">Cambiar a modo zurdo</button>
 
 <!-- CONTROLES TÁCTILES (solo visibles en móvil) -->
-<div id="touch-controls">
+<div id="touch-controls" class="right-handed">
   <div class="dpad-actions">
     <div class="dpad">
       <button id="btn-left">←</button>
@@ -84,6 +94,7 @@
     <button id="btn-start">Start</button>
   </div>
 </div>
+
 
 
 
