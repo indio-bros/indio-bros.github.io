@@ -84,3 +84,19 @@ function setupTouchControls() {
 if ('ontouchstart' in window) {
   setupTouchControls();
 }
+
+// Toggle diestro / zurdo
+const toggleBtn = document.getElementById("toggle-handedness");
+const touchControls = document.getElementById("touch-controls");
+
+toggleBtn.addEventListener("click", () => {
+  if (touchControls.classList.contains("right-handed")) {
+    touchControls.classList.remove("right-handed");
+    touchControls.classList.add("left-handed");
+    toggleBtn.textContent = "Cambiar a modo diestro";
+  } else {
+    touchControls.classList.remove("left-handed");
+    touchControls.classList.add("right-handed");
+    toggleBtn.textContent = "Cambiar a modo zurdo";
+  }
+});

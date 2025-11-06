@@ -7,35 +7,37 @@
   <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* Aparece solo en pantallas chicas */
-  #touch-controls {
-    display: none;
-    margin-top: 1em;
-    text-align: center;
-  }
+ #touch-controls {
+  display: none;
+  margin-top: 1em;
+  text-align: center;
+}
 
-  @media (max-width: 768px) {
-    #touch-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5em;
-    }
-    #touch-controls button {
-      font-size: 1.2em;
-      padding: 0.8em 1.2em;
-      border-radius: 10px;
-      border: none;
-      background: #333;
-      color: #fff;
-    }
-    .dpad,
-    .actions,
-    .system-buttons {
-      display: flex;
-      gap: 1em;
-    }
+@media (max-width: 768px) {
+  #touch-controls {
+    display: flex;
+    flex-direction: row; /* se ajusta por la clase */
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
   }
+  #touch-controls button {
+    font-size: 1.2em;
+    padding: 0.8em 1.2em;
+    border-radius: 10px;
+    border: none;
+    background: #333;
+    color: #fff;
+  }
+  #touch-controls.right-handed .dpad { order: 0; }
+  #touch-controls.right-handed .actions { order: 1; }
+
+  #touch-controls.left-handed .dpad { order: 1; }
+  #touch-controls.left-handed .actions { order: 0; }
+
+  .dpad, .actions { display: flex; gap: 1em; }
+}
+
 </style>
 </head>
 
@@ -58,8 +60,11 @@
 
 <button id="load-rom">Cargar ROM</button>
 
-<!-- CONTROLES TÁCTILES (solo visibles en móvil) -->
-<div id="touch-controls">
+<!-- Toggle modo zurdo/diestro -->
+<button id="toggle-handedness">Cambiar a modo zurdo</button>
+
+<!-- CONTROLES TÁCTILES -->
+<div id="touch-controls" class="right-handed">
   <div class="dpad">
     <button id="btn-left">←</button>
     <button id="btn-right">→</button>
@@ -70,6 +75,7 @@
     <button id="btn-start">Start</button>
   </div>
 </div>
+
 
 <div class="player">
   <h3>Soundtrack</h3>
