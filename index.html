@@ -43,6 +43,56 @@
 <!-- Tu script principal -->
 <script src="script.js"></script>
 
+<!-- Controles táctiles simples -->
+<div id="touch-controls">
+  <button id="btn-left">⬅️</button>
+  <button id="btn-right">➡️</button>
+  <button id="btn-a">🅰️</button>
+</div>
+
+<style>
+#touch-controls {
+  position: fixed;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 10;
+}
+#touch-controls button {
+  font-size: 2rem;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  backdrop-filter: blur(4px);
+}
+</style>
+
+<script>
+function simulateKey(key, type) {
+  document.dispatchEvent(new KeyboardEvent(type, { key }));
+}
+
+// controles básicos
+const buttons = {
+  left: document.getElementById("btn-left"),
+  right: document.getElementById("btn-right"),
+  a: document.getElementById("btn-a"),
+};
+
+buttons.left.addEventListener("touchstart", () => simulateKey("ArrowLeft", "keydown"));
+buttons.left.addEventListener("touchend", () => simulateKey("ArrowLeft", "keyup"));
+
+buttons.right.addEventListener("touchstart", () => simulateKey("ArrowRight", "keydown"));
+buttons.right.addEventListener("touchend", () => simulateKey("ArrowRight", "keyup"));
+
+buttons.a.addEventListener("touchstart", () => simulateKey("a", "keydown"));
+buttons.a.addEventListener("touchend", () => simulateKey("a", "keyup"));
+</script>
+
 </body>
 </html>
 
