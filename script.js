@@ -53,48 +53,34 @@ document.getElementById("load-rom").addEventListener("click", () => {
 
 
 // --- CONTROLES TÁCTILES SIMPLIFICADOS ---
-// Mapea botones táctiles a teclas del jugador 1 (flechas, A, Enter, Tab)
-
-function simulateKey(key, keyCode, type) {
-  const event = new KeyboardEvent(type, {
-    key,
-    code: key,
-    keyCode,
-    which: keyCode,
-    bubbles: true,
-    cancelable: true,
-  });
-  document.dispatchEvent(event);
-}
+// Llama directamente a nes.buttonDown / nes.buttonUp para móviles
 
 function setupTouchControls() {
   const buttons = [
-    { id: "btn-left", key: "ArrowLeft", keyCode: 37 },
-    { id: "btn-right", key: "ArrowRight", keyCode: 39 },
-    { id: "btn-a", key: "a", keyCode: 65 },        // A - salto
-    { id: "btn-select", key: "Tab", keyCode: 9 },  // Select
-    { id: "btn-start", key: "Enter", keyCode: 13 } // Start
+    { id: "btn-left", player: 1, button: jsnes.Controller.BUTTON_LEFT },
+    { id: "btn-right", player: 1, button: jsnes.Controller.BUTTON_RIGHT },
+    { id: "btn-a", player: 1, button: jsnes.Controller.BUTTON_A },
+    { id: "btn-select", player: 1, button: jsnes.Controller.BUTTON_SELECT },
+    { id: "btn-start", player: 1, button: jsnes.Controller.BUTTON_START }
   ];
 
   buttons.forEach(btn => {
     const el = document.getElementById(btn.id);
     if (!el) return;
 
-    const press = e => {
+    el.addEventListener("touchstart", e => {
       e.preventDefault();
-      simulateKey(btn.key, btn.keyCode, "keydown");
-    };
-    const release = e => {
-      e.preventDefault();
-      simulateKey(btn.key, btn.keyCode, "keyup");
-    };
+      nes.buttonDown(btn.player, btn.button);
+    });
 
-    el.addEventListener("touchstart", press);
-    el.addEventListener("touchend", release);
+    el.addEventListener("touchend", e => {
+      e.preventDefault();
+      nes.buttonUp(btn.player, btn.button);
+    });
   });
 }
 
-// Solo activar en pantallas táctiles
-if ("ontouchstart" in window) {
+// Activamos solo en pantallas táctiles
+if ('ontouchstart' in window) {
   setupTouchControls();
 }
