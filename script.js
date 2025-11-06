@@ -46,19 +46,7 @@ player.addEventListener("ended", () => {
   playTrack(next);
 });
 
-// --- EMULADOR JSNES EMBED ---
-let nes = new jsnes.NES({
-  onFrame: function (frameBuffer) {
-    nes_draw_frame(frameBuffer);
-  },
-  onAudioSample: function (l, r) {
-    nes_write_audio_sample(l, r);
-  }
-});
-
-// Evitamos reproducir audio antes de interacción
 document.getElementById("load-rom").addEventListener("click", () => {
-  // Usuario hace clic → habilitado el audio
   playTrack(currentTrack);
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
 });
