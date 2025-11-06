@@ -94,7 +94,14 @@ function nes_init(canvas_id){
 	var audio_ctx = new window.AudioContext();
 	var script_processor = audio_ctx.createScriptProcessor(AUDIO_BUFFERING, 0, 2);
 	script_processor.onaudioprocess = audio_callback;
-	script_processor.connect(audio_ctx.destination);
+
+	// 🔉 Agregamos un control de volumen general
+	var gainNode = audio_ctx.createGain();
+	gainNode.gain.value = 0.4; // volumen al 40% (podés ajustar entre 0.1 y 1.0)
+
+	// Conectamos el procesador al gain y luego al destino
+	script_processor.connect(gainNode);
+	gainNode.connect(audio_ctx.destination);
 }
 
 function nes_boot(rom_data){
