@@ -10,7 +10,7 @@ const tracks = [
   ["8motorpsico.mp3", "Motor psico"],
   ["9tareafina.mp3", "Tarea fina"],
   ["10todounpalo.mp3", "Todo un palo"],
-  ["11eshoradelevantarse.mp3", "¡Es hora de levantarse, querido! (dormiste bien?)"],
+  ["11eshoradelevantarse.mp3", "¡Es hora de levantarse, querido! (¿dormiste bien?)"],
   ["12pabellonseptimo.mp3", "Pabellón séptimo (relato de Horacio)"],
   ["13habiaunavez.mp3", "Había una vez"]
 ];
@@ -29,9 +29,12 @@ tracks.forEach(([file, name], i) => {
 let currentTrack = Math.floor(Math.random() * tracks.length);
 
 function playTrack(index) {
+  if (index === undefined) index = Math.floor(Math.random() * tracks.length);
   currentTrack = index;
   player.src = `audio/${tracks[index][0]}`;
-  player.play();
+  player.play().catch(() => {
+    console.warn("Esperando interacción del usuario para reproducir audio.");
+  });
 }
 
 // Reproducir siguiente (aleatorio continuo)
@@ -43,21 +46,19 @@ player.addEventListener("ended", () => {
   playTrack(next);
 });
 
-// Reproducir uno al azar al cargar
-window.addEventListener("load", () => playTrack(currentTrack));
-
-
 // --- EMULADOR JSNES EMBED ---
 let nes = new jsnes.NES({
-  onFrame: function(frameBuffer) {
+  onFrame: function (frameBuffer) {
     nes_draw_frame(frameBuffer);
   },
-  onAudioSample: function(l, r) {
+  onAudioSample: function (l, r) {
     nes_write_audio_sample(l, r);
   }
 });
 
+// Evitamos reproducir audio antes de interacción
 document.getElementById("load-rom").addEventListener("click", () => {
-  playTrack(); // ahora el usuario interactuó
+  // Usuario hace clic → habilitado el audio
+  playTrack(currentTrack);
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
 });
