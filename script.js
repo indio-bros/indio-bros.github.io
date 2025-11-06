@@ -53,27 +53,37 @@ document.getElementById("load-rom").addEventListener("click", () => {
 
 
 // --- CONTROLES TÁCTILES ---
+
 function simulateKey(code, type) {
-  const event = new KeyboardEvent(type, { keyCode: code, which: code });
+  // Simula un evento de teclado
+  const event = new KeyboardEvent(type, {
+    code: code,
+    key: code,
+    bubbles: true,
+    cancelable: true,
+  });
   document.dispatchEvent(event);
 }
 
 function setupTouchControls() {
   const buttons = [
-    { id: "btn-left", code: 37 },
-    { id: "btn-right", code: 39 },
-    { id: "btn-a", code: 65 },      // 'A' - salto
-    { id: "btn-b", code: 83 },      // 'S' - acción secundaria
-    { id: "btn-select", code: 9 }   // Tab - select
+    { id: "btn-left", code: "ArrowLeft" },
+    { id: "btn-right", code: "ArrowRight" },
+    { id: "btn-a", code: "KeyA" },       // A - salto
+    { id: "btn-b", code: "KeyS" },       // S - acción secundaria
+    { id: "btn-select", code: "Tab" },   // Select
+    { id: "btn-start", code: "Enter" },  // Start
   ];
 
   buttons.forEach(btn => {
     const el = document.getElementById(btn.id);
     if (!el) return;
+
     el.addEventListener("touchstart", e => {
       e.preventDefault();
       simulateKey(btn.code, "keydown");
     });
+
     el.addEventListener("touchend", e => {
       e.preventDefault();
       simulateKey(btn.code, "keyup");
@@ -81,7 +91,7 @@ function setupTouchControls() {
   });
 }
 
-// Solo activamos los controles si hay pantalla táctil
+// Activar solo si hay pantalla táctil
 if ('ontouchstart' in window) {
   setupTouchControls();
 }

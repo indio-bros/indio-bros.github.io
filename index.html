@@ -5,56 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Indio Bros y los Fundamentalistas de los 8-bit</title>
   <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Indio Bros</h1>
-      <h2>y los Fundamentalistas de los 8-bit</h2>
-    </header>
-
-    <main>
-      <div class="emulator">
-        <canvas id="nes-canvas" width="256" height="240"></canvas>
-        <div id="controls">
-  <h3>Controles</h3>
-  <p><strong>Jugador 1:</strong> Flechas para moverse, <kbd>A</kbd> / <kbd>S</kbd> para acción/salto, <kbd>Enter</kbd> para Start, <kbd>Tab</kbd> para Select.</p>
-  <p><strong>Jugador 2:</strong> (no disponible en esta versión)</p>
-</div>
-
-        <button id="load-rom">Cargar ROM</button>
-      </div>
-
-      <div class="player">
-        <h3>Soundtrack</h3>
-        <table id="tracklist"></table>
-        <audio id="audio-player" controls></audio>
-      </div>
-    </main>
-
-    <footer>
-      <p>© 2025 Proyecto fanmade — Sin fines de lucro</p>
-    </footer>
-  </div>
-<!-- Emulador básico desde el ejemplo oficial -->
-<script src="https://cdn.jsdelivr.net/npm/jsnes@1.2.1/dist/jsnes.min.js"></script>
-<script src="js/jsnes-embed.js"></script>
-
-<!-- Tu script principal -->
-<script src="script.js"></script>
-
-<!-- CONTROLES TÁCTILES (solo visibles en móvil) -->
-<div id="touch-controls">
-  <div class="dpad">
-    <button id="btn-left">←</button>
-    <button id="btn-right">→</button>
-  </div>
-  <div class="actions">
-    <button id="btn-a">A</button>
-    <button id="btn-b">B</button>
-    <button id="btn-select">Select</button>
-  </div>
-</div>
 
 <style>
   /* Aparece solo en pantallas chicas */
@@ -79,16 +29,71 @@
       background: #333;
       color: #fff;
     }
-    .dpad {
-      display: flex;
-      gap: 1em;
-    }
-    .actions {
+    .dpad,
+    .actions,
+    .system-buttons {
       display: flex;
       gap: 1em;
     }
   }
 </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Indio Bros</h1>
+      <h2>y los Fundamentalistas de los 8-bit</h2>
+    </header>
+
+    <<main>
+  <div class="emulator">
+    <canvas id="nes-canvas" width="256" height="240"></canvas>
+
+    <div id="controls">
+      <h3>Controles</h3>
+      <p><strong>Jugador 1:</strong> Flechas para moverse, <kbd>A</kbd> / <kbd>S</kbd> para acción/salto, <kbd>Enter</kbd> para Start, <kbd>Tab</kbd> para Select.</p>
+      <p><strong>Jugador 2:</strong> (no disponible en esta versión)</p>
+    </div>
+
+    <button id="load-rom">Cargar ROM</button>
+
+    <!-- 👇 Mover los controles táctiles acá -->
+<div id="touch-controls">
+  <div class="dpad">
+    <button id="btn-left">←</button>
+    <button id="btn-right">→</button>
+  </div>
+  <div class="actions">
+    <button id="btn-a">A</button>
+    <button id="btn-b">B</button>
+  </div>
+  <div class="system-buttons">
+    <button id="btn-select">Select</button>
+    <button id="btn-start">Start</button>
+  </div>
+</div>
+
+  <div class="player">
+    <h3>Soundtrack</h3>
+    <table id="tracklist"></table>
+    <audio id="audio-player" controls></audio>
+  </div>
+</main>
+
+
+    <footer>
+      <p>© 2025 Proyecto fanmade — Sin fines de lucro</p>
+    </footer>
+  </div>
+<!-- Emulador básico desde el ejemplo oficial -->
+<script src="https://cdn.jsdelivr.net/npm/jsnes@1.2.1/dist/jsnes.min.js"></script>
+<script src="js/jsnes-embed.js"></script>
+
+<!-- Tu script principal -->
+<script src="script.js"></script>
+
+
 
 
 
