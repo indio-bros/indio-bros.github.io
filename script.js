@@ -100,3 +100,23 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.textContent = "Cambiar a modo zurdo";
   }
 });
+
+
+
+const placeholder = document.getElementById("rom-placeholder");
+const canvas = document.getElementById("nes-canvas");
+
+function startGame() {
+  // Oculta la portada
+  placeholder.style.display = "none";
+  // Muestra el canvas
+  canvas.style.display = "block";
+  // Carga el ROM
+  nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
+}
+
+// Click en la portada
+placeholder.addEventListener("click", startGame);
+
+// Click en el botón "Jugar" (respaldo)
+document.getElementById("load-rom").addEventListener("click", startGame);

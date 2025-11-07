@@ -52,6 +52,16 @@
   flex-direction: row-reverse; /* A queda a la izquierda, flechas a la derecha */
 }
 
+#rom-placeholder {
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto 1em auto;
+  border: 4px solid #333;
+  border-radius: 8px;
+}
+
 
 </style>
 </head>
@@ -65,35 +75,42 @@
 
     <main>
   <div class="emulator">
-    <canvas id="nes-canvas" width="256" height="240"></canvas>
+  <!-- Imagen placeholder / botón "Jugar" -->
+  <img id="rom-placeholder" src="portada_juego.png" alt="Portada juego" />
 
-    <div id="controls">
-      <h3>Controles</h3>
-      <p><strong>Jugador 1:</strong> Flechas para moverse, <kbd>A</kbd> / <kbd>S</kbd> para acción/salto, <kbd>Enter</kbd> para Start, <kbd>Tab</kbd> para Select.</p>
-      <p><strong>Jugador 2:</strong> (no disponible en esta versión)</p>
-    </div>
+  <!-- Canvas del emulador -->
+  <canvas id="nes-canvas" width="256" height="240" style="display:none;"></canvas>
 
-<button id="load-rom">Cargar ROM</button>
-
-<!-- Toggle modo zurdo/diestro -->
-<button id="toggle-handedness">Cambiar a modo zurdo</button>
-
-<!-- CONTROLES TÁCTILES (solo visibles en móvil) -->
-<div id="touch-controls" class="right-handed">
-  <div class="dpad-actions">
-    <div class="dpad">
-      <button id="btn-left">←</button>
-      <button id="btn-right">→</button>
-    </div>
-    <div class="actions">
-      <button id="btn-a">A</button>
-    </div>
+  <div id="controls">
+    <h3>Controles</h3>
+    <p><strong>Jugador 1:</strong> Flechas para moverse, <kbd>A</kbd> / <kbd>S</kbd> para acción/salto, <kbd>Enter</kbd> para Start, <kbd>Tab</kbd> para Select.</p>
+    <p><strong>Jugador 2:</strong> (no disponible en esta versión)</p>
   </div>
-  <div class="start-select">
-    <button id="btn-select">Select</button>
-    <button id="btn-start">Start</button>
+
+  <!-- Botón "Jugar" como respaldo -->
+  <button id="load-rom">Jugar</button>
+
+  <!-- Toggle modo zurdo/diestro -->
+  <button id="toggle-handedness">Cambiar a modo zurdo</button>
+
+  <!-- CONTROLES TÁCTILES -->
+  <div id="touch-controls" class="right-handed">
+    <div class="dpad-actions">
+      <div class="dpad">
+        <button id="btn-left">←</button>
+        <button id="btn-right">→</button>
+      </div>
+      <div class="actions">
+        <button id="btn-a">A</button>
+      </div>
+    </div>
+    <div class="start-select">
+      <button id="btn-select">Select</button>
+      <button id="btn-start">Start</button>
+    </div>
   </div>
 </div>
+
 
 
 
