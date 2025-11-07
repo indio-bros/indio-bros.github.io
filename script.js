@@ -107,7 +107,7 @@ const placeholder = document.getElementById("rom-placeholder");
 const canvas = document.getElementById("nes-canvas");
 const loadButton = document.getElementById("load-rom");
 
-// Función que arranca el juego y el soundtrack
+// --- FUNCIÓN PRINCIPAL: ARRANQUE AUTOMÁTICO DEL JUEGO Y MÚSICA ---
 function startGame() {
   // Oculta la portada
   placeholder.style.display = "none";
@@ -117,10 +117,28 @@ function startGame() {
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
   // Inicia el soundtrack (dentro del mismo clic para cumplir autoplay en móviles)
   playTrack(currentTrack);
+
+  // 🕹️ Simula pulsar "Start" (Enter) automáticamente al cargar el juego
+  // Espera unos segundos para que el ROM se inicialice
+  setTimeout(() => {
+    try {
+      // Simula la tecla "Enter"
+      const eventDown = new KeyboardEvent("keydown", { key: "Enter", keyCode: 13, which: 13 });
+      const eventUp = new KeyboardEvent("keyup", { key: "Enter", keyCode: 13, which: 13 });
+      window.dispatchEvent(eventDown);
+      window.dispatchEvent(eventUp);
+
+      // Además, por compatibilidad, simulamos el botón START del Player 1 de jsnes
+      if (typeof nes !== "undefined") {
+        nes.buttonDown(1, jsnes.Controller.BUTTON_START);
+        setTimeout(() => nes.buttonUp(1, jsnes.Controller.BUTTON_START), 100);
+      }
+    } catch (e) {
+      console.warn("No se pudo simular la tecla Start automáticamente:", e);
+    }
+  }, 2000); // Ajustá el tiempo si el ROM tarda más o menos en cargar
 }
 
-// Click en la portada
+// --- EVENTOS DE USUARIO ---
 placeholder.addEventListener("click", startGame);
-
-// Click en el botón "Jugar" (respaldo)
 loadButton.addEventListener("click", startGame);
