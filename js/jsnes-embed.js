@@ -23,12 +23,35 @@ var nes = new jsnes.NES({
 	},
 });
 
-function onAnimationFrame(){
+/* function onAnimationFrame(){
 	window.requestAnimationFrame(onAnimationFrame);
 	
 	image.data.set(framebuffer_u8);
 	canvas_ctx.putImageData(image, 0, 0);
 }
+*/
+let lastFrameTime = 0;
+const FPS = 60;
+const FRAME_TIME = 1000 / FPS;
+
+function onAnimationFrame(timestamp) {
+  window.requestAnimationFrame(onAnimationFrame);
+
+  // Calcula el tiempo entre frames
+  const delta = timestamp - lastFrameTime;
+
+  if (delta >= FRAME_TIME) {
+    lastFrameTime = timestamp - (delta % FRAME_TIME);
+
+    // Emula un frame de NES
+    nes.frame();
+
+    // Actualiza la imagen
+    image.data.set(framebuffer_u8);
+    canvas_ctx.putImageData(image, 0, 0);
+  }
+}
+
 
 function audio_remain(){
 	return (audio_write_cursor - audio_read_cursor) & SAMPLE_MASK;
