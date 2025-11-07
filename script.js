@@ -113,10 +113,10 @@ function startGame() {
   placeholder.style.display = "none";
   // Muestra el canvas
   canvas.style.display = "block";
-  // Inicia el soundtrack
-  playTrack(currentTrack);
   // Carga el ROM
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
+  // Inicia el soundtrack (dentro del mismo clic para cumplir autoplay en móviles)
+  playTrack(currentTrack);
 }
 
 // Click en la portada
@@ -124,4 +124,3 @@ placeholder.addEventListener("click", startGame);
 
 // Click en el botón "Jugar" (respaldo)
 loadButton.addEventListener("click", startGame);
-
