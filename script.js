@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 // --- TRACKLIST ---
 const tracks = [
   ["1unpacmanenelsavoy.mp3", "Un pacman en el Savoy"],
@@ -46,10 +48,7 @@ player.addEventListener("ended", () => {
   playTrack(next);
 });
 
-document.getElementById("load-rom").addEventListener("click", () => {
-  playTrack(currentTrack);
-  nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
-});
+
 
 
 // --- CONTROLES TÁCTILES SIMPLIFICADOS ---
@@ -200,3 +199,14 @@ const style = document.createElement("style");
 style.textContent = disableSelection;
 document.head.appendChild(style);
 
+// Hacer que el botón Start funcione también en escritorio (modo demo)
+const startBtn = document.getElementById("btn-start");
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    nes.buttonDown(1, jsnes.Controller.BUTTON_START);
+    setTimeout(() => nes.buttonUp(1, jsnes.Controller.BUTTON_START), 100);
+  });
+}
+
+
+});
