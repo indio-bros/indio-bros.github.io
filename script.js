@@ -109,11 +109,18 @@ const loadButton = document.getElementById("reiniciarBtn");
 // --- FUNCIÓN PRINCIPAL: ARRANQUE AUTOMÁTICO DEL JUEGO Y MÚSICA ---
 function startGame() {
   // Oculta la portada
-  placeholder.style.display = "none";
-  // Muestra el canvas
-  canvas.style.display = "block";
-  // Carga el ROM
+placeholder.style.display = "none";
+
+// Mostramos el canvas antes de inicializar el emulador
+canvas.style.display = "block";
+
+// Iniciamos el emulador solo después de asegurarnos que jsnes-embed.js esté cargado
+if (typeof nes_load_url === "function") {
   nes_load_url("nes-canvas", "roms/INDIOBROS.NES");
+} else {
+  console.error("La función nes_load_url no está disponible. Verificá la ruta de jsnes-embed.js.");
+}
+
   // Inicia el soundtrack (dentro del mismo clic para cumplir autoplay en móviles)
   playTrack(currentTrack);
 
