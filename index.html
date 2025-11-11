@@ -36,11 +36,7 @@
 
   #touch-controls button {
     font-size: 1.2em;
-    padding: 0.8em 1.2em;
-    border-radius: 10px;
-    border: none;
-    background: #333;
-    color: #fff;
+    padding: 0.8em;
   }
 }
 
@@ -150,26 +146,6 @@
 
 <!-- Tu script principal -->
 <script src="script.js"></script>
-
-  ...
-  <!-- Otros scripts o elementos del juego -->
-
-  <script>
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    document.getElementById("reiniciarBtn").addEventListener("click", () => {
-      location.reload();
-    });
-
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const startImage = document.getElementById("rom-placeholder");
-        if (startImage && !isMobile) {
-          startImage.click();
-        }
-      }, 800);
-    });
-  </script>
 </body>
 </html>
 

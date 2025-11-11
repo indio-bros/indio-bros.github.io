@@ -105,7 +105,7 @@ toggleBtn.addEventListener("click", () => {
 
 const placeholder = document.getElementById("rom-placeholder");
 const canvas = document.getElementById("nes-canvas");
-const loadButton = document.getElementById("load-rom");
+const loadButton = document.getElementById("reiniciarBtn");
 
 // --- FUNCIÓN PRINCIPAL: ARRANQUE AUTOMÁTICO DEL JUEGO Y MÚSICA ---
 function startGame() {
