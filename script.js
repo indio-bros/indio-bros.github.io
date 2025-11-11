@@ -142,3 +142,61 @@ function startGame() {
 // --- EVENTOS DE USUARIO ---
 placeholder.addEventListener("click", startGame);
 loadButton.addEventListener("click", startGame);
+
+// --- DETECCIÓN DE DISPOSITIVO Y AJUSTES DE INTERFAZ ---
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+// Si es escritorio
+if (!isMobile) {
+  // Oculta botón de modo zurdo
+  const toggleBtn = document.getElementById("toggle-handedness");
+  if (toggleBtn) toggleBtn.style.display = "none";
+
+  // Cambia el texto del botón y lo convierte en "Reiniciar" (refresh completo)
+  loadButton.textContent = "🔁 Reiniciar";
+  loadButton.removeEventListener("click", startGame);
+  loadButton.addEventListener("click", () => {
+    location.reload(); // Recarga toda la página (estado limpio)
+  });
+}
+
+// Si es móvil
+if (isMobile) {
+  // Ajustes visuales y funcionales
+  const selectBtn = document.getElementById("btn-select");
+  const startBtn = document.getElementById("btn-start");
+
+  // Oculta el botón Select
+  if (selectBtn) selectBtn.style.display = "none";
+
+  // Cambia "Start" por "⏸️ Pausa"
+  if (startBtn) {
+    startBtn.textContent = "⏸️ Pausa";
+    // Podés hacer que pause o reanude el audio
+    startBtn.addEventListener("click", () => {
+      if (player.paused) player.play();
+      else player.pause();
+    });
+  }
+
+  // Agranda los botones táctiles principales
+  const buttons = document.querySelectorAll("#touch-controls button");
+  buttons.forEach(btn => {
+    btn.style.fontSize = "1.4em";
+    btn.style.padding = "1em";
+    btn.style.borderRadius = "50%";
+  });
+}
+
+// --- EVITAR SELECCIÓN DE TEXTO EN BOTONES Y CONTROLES ---
+const disableSelection = `
+  button, #touch-controls, #controls, #dpad, #buttons {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+`;
+const style = document.createElement("style");
+style.textContent = disableSelection;
+document.head.appendChild(style);
+
