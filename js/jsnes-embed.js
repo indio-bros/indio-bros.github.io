@@ -102,8 +102,17 @@ function keyboard(callback, event){
 
 function nes_init(canvas_id){
 	var canvas = document.getElementById(canvas_id);
-	canvas_ctx = canvas.getContext("2d");
-	image = canvas_ctx.getImageData(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+// Aseguramos que el canvas esté visible antes de crear el contexto
+canvas.style.display = "block";
+
+canvas_ctx = canvas.getContext("2d");
+if (!canvas_ctx) {
+  console.error("No se pudo obtener el contexto del canvas. Verificá el ID o el display CSS.");
+  return;
+}
+
+image = canvas_ctx.createImageData(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	
 	canvas_ctx.fillStyle = "black";
 	canvas_ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
